@@ -78,8 +78,6 @@ int SledgeGraphicsHandler::DoGetScreenList( lua_State* L )
  */
 int SledgeGraphicsHandler::DoGetResolutionInfo( lua_State* L )
 {
-	MOAI_LUA_SETUP ( SledgeGraphicsHandler, "U" )
-		
 	// Get the index of the display we're currently on.
 	int displayIdx = SDL_GetWindowDisplayIndex(m_window);
 	// Get the number of modes this display can do.
@@ -271,20 +269,20 @@ int SledgeGraphicsHandler::DoGetResolutionInfo( lua_State* L )
  */
 int SledgeGraphicsHandler::DoSetResolution( lua_State* L )
 {
-	MOAI_LUA_SETUP ( SledgeGraphicsHandler, "UNNNNN" );
+	MOAILuaState state(L);
 
-	int width = state.GetValue<int>(2, 0);
-	int height = state.GetValue<int>(3, 0);
-	int refresh = state.GetValue<int>(4, 0);
-	int bpp = state.GetValue<int>(5, 0);
+	int width = state.GetValue<int>(1, 0);
+	int height = state.GetValue<int>(2, 0);
+	int refresh = state.GetValue<int>(3, 0);
+	int bpp = state.GetValue<int>(4, 0);
 
 	SDL_bool bFullscreen = SDL_FALSE;
-	if(state.GetValue<int>(6, 0) == 1)
+	if(state.GetValue<int>(5, 0) == 1)
 	{
 		bFullscreen = SDL_TRUE;
 	}
 	SDL_bool bVsync = SDL_TRUE;
-	if (state.GetValue<int>(7, 1) == 0) {
+	if (state.GetValue<int>(6, 1) == 0) {
 		bVsync = SDL_FALSE;
 		printf("Turn VSync off");
 	}
