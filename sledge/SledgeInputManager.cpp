@@ -200,7 +200,7 @@ bool SledgeInputManager::connectController(int idx_device, int idx_gamepad)
 			pad.index_controller
 			);
 
-		AKUSetInputDeviceExtendedName(
+		AKUSetInputDeviceHardwareInfo(
 			pad.device_id,
 			pad.name
 			);
@@ -258,7 +258,7 @@ bool SledgeInputManager::connectJoystick(int idx_device, int idx_joystick)
 	stick.index_joystick = idx_joystick;
 	stick.device_id = (SLEDGE_NAMESPACE::InputDevice_ID)(SLEDGE_NAMESPACE::ID_JOY_0 + idx_joystick);
 
-	AKUSetInputDeviceExtendedName(
+	AKUSetInputDeviceHardwareInfo(
 		stick.device_id,
 		stick.name
 		);
@@ -330,7 +330,7 @@ void SledgeInputManager::initJoy(
 		p_sledgejoystick->device_id,
 		joy_name
 	);
-	AKUSetInputDeviceExtendedName(
+	AKUSetInputDeviceHardwareInfo(
 		p_sledgejoystick->device_id,
 		p_sledgejoystick->name
 	);
@@ -475,7 +475,7 @@ void SledgeInputManager::initPad(
 		p_sledgecontroller->device_id,
 		pad_name
 	);
-	AKUSetInputDeviceExtendedName(
+	AKUSetInputDeviceHardwareInfo(
 		p_sledgecontroller->device_id,
 		p_sledgecontroller->name
 	);
@@ -521,7 +521,7 @@ void SledgeInputManager::initDevice(
 		p_id,
 		SLEDGE_NAMESPACE::InputDevice::DeviceName[p_id]
 		);
-	AKUSetInputDeviceExtendedName(
+	AKUSetInputDeviceHardwareInfo(
 		p_id,
 		p_sledgedevice->name
 		);
@@ -709,7 +709,7 @@ void SledgeInputManager::doOnTick()
 				pp_keybState.pp[pingpongSide].state[i],
 				pp_keybState.pp[!pingpongSide].state[i]
 			);
-			AKUEnqueueKeyboardEvent(
+			AKUEnqueueKeyboardKeyEvent(
 				SledgeInputDevice::ID_DEVICE,
 				SledgeDeviceSensor::IDS_KEYBOARD,
 				i,
@@ -769,7 +769,7 @@ void SledgeInputManager::inputNotify_onKeyDown(SDL_KeyboardEvent* p_event)
 	// @todo move aku notification to the ontick function
 
 	
-	AKUEnqueueKeyboardEvent(
+	AKUEnqueueKeyboardKeyEvent(
 		SLEDGE_NAMESPACE::ID_DEVICE,
 		SLEDGE_NAMESPACE::IDS_KEYBOARD,
 		scancode2,
@@ -968,7 +968,7 @@ void SledgeInputManager::updateController( SledgeController* p_sledgecontroller 
 		bool bStateChange = pps->pp[pingpongSide].state[i] != pps->pp[!pingpongSide].state[i];
 		if(bStateChange)
 		{
-			AKUEnqueueKeyboardEvent(
+			AKUEnqueueKeyboardKeyEvent(
 				p_sledgecontroller->device_id,
 				SLEDGE_NAMESPACE::PS_BUTTONS,
 				i,
@@ -990,7 +990,7 @@ void SledgeInputManager::updateController( SledgeController* p_sledgecontroller 
 
 		if(p_sledgecontroller->buttons[i] == true || bDownThisFrame == true)
 		{
-			AKUEnqueueKeyboardEvent(
+			AKUEnqueueKeyboardKeyEvent(
 				p_sledgecontroller->device_id,
 				SledgePadSensorAxes::PS_BUTTONS,
 				i,
@@ -1033,7 +1033,7 @@ void SledgeInputManager::updateJoystick( SledgeJoystick* p_sledgejoystick )
 
 		if(bDownThisFrame == true || p_sledgejoystick->buttons[i] == true)
 		{
-			AKUEnqueueKeyboardEvent(
+			AKUEnqueueKeyboardKeyEvent(
 				p_sledgejoystick->device_id,
 				p_sledgejoystick->sticks.size(),
 				i,

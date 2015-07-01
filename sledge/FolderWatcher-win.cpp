@@ -129,7 +129,7 @@ static void deleteAllMarked() {
 }
 
 static void reloadLuaFile(const char * file) {
-	AKURunScript(file);
+	AKULoadFuncFromFile(file);
 	printf("%s reloaded.\n",file);
 }
 

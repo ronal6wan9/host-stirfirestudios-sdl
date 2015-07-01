@@ -93,18 +93,18 @@ m_InputManager(NULL)
 	
 	
 	// Finally, run the designated script.
-	AKUSetArgv ( argv );
+	AKUModulesParseArgs ( argc, argv );
 	if(m_LastScript != NULL)
 	{
 #if defined(_WIN32) || defined(_WIN64)
 		if(scr > 0)
 		{
-			AKURunScript(&(m_LastScript[strlen(m_LastScript) - scr]));
+			AKULoadFuncFromFile(&(m_LastScript[strlen(m_LastScript) - scr]));
 		} else {
-			AKURunScript(m_LastScript);
+			AKULoadFuncFromFile(m_LastScript);
 		}
 #else 
-		AKURunScript(m_LastScript);
+		AKULoadFuncFromFile(m_LastScript);
 #endif
 
 		if ( m_bDoLuaDynamicReeval ) {
@@ -439,7 +439,7 @@ bool SledgeHost::DoProcessArgs(s32 argc, char** argv)
 		// -s [Lua string]	executes a given Lua string
 		else if ( strcmp( thisarg, "-s" ) == 0 && ++idx < argc ) {
 			char* script = argv [ idx ];
-			AKURunString ( script );
+			AKULoadFuncFromString ( script );
 			bValidArgs = true;
 			break;
 		}

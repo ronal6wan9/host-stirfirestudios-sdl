@@ -163,7 +163,7 @@ void SledgeInputWrapper::DoAKUInit_Device( SledgeDevice* p_sledgedevice )
 	);
 
 	// tell MOAI what this device is named
-	AKUSetInputDeviceExtendedName(
+	AKUSetInputDeviceHardwareInfo(
 		p_id,
 		p_sledgedevice->name
 		);

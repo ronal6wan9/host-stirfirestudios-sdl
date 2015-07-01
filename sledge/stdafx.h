@@ -2,6 +2,9 @@
 
 #define SLEDGE_NAMESPACE Sledge
 
+#ifndef ZL_TYPES
+#define ZL_TYPES
+
 typedef unsigned int			uint;
 typedef unsigned long			uintptr;
 typedef long				    sintptr;
@@ -18,6 +21,7 @@ typedef signed short			s16;
 typedef signed int				s32;
 typedef signed long long			s64;
 
+#endif
 
 // ARCHITECTURE ---------------------------------------------------------------
 // VC
@@ -85,7 +89,9 @@ extern "C" {
 #include <lua.h>
 #include <lualib.h>
 #include <lauxlib.h>
-//#include <lapi.h>
+#ifndef MOAI_WITH_LUAJIT
+#include <lapi.h>
+#endif
 }
 namespace {
 #include <lua-headers/moai_lua.h>

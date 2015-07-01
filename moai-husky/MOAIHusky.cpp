@@ -265,7 +265,7 @@ int MOAIHusky::_leaderboardUploadScore( lua_State* L ) {
 	MOAIStream* moaistream = state.GetLuaObject < MOAIStream >( 5, true );
 	int64_t data = 0;
 	if (moaistream != NULL) {
-		ZLStream *stream = moaistream->GetZLStream();
+		ZLStream *stream = moaistream;
 		stream->Seek(0, SEEK_SET);
 		if (stream->GetLength() < 8) {
 			stream->ReadBytes((void*)&data, stream->GetLength());
@@ -341,8 +341,7 @@ int MOAIHusky::_cloudDataUpload( lua_State* L ) {
 	
 	cc8* cloudpath = state.GetValue<cc8*>(2, 0);
 	MOAIDataBuffer* data = state.GetLuaObject < MOAIDataBuffer >( 3, true );
-	ZLLeanArray<u8> *array = data->getBuffer();
-	self->_instance->uploadCloudData(cloudpath, array->Data(), array->Size());
+	self->_instance->uploadCloudData(cloudpath, data->GetBuffer(), data->Size());
 	return 0;
 }
 
