@@ -2,7 +2,7 @@
 #include "SledgeInputManager.h"
 
 SledgeInputManager::SledgeInputManager():
-	bHideCursorWhenInsideWindow(true),
+	bHideCursorWhenInsideWindow(false),
 	bCursorWithinWindow(false)
 {
 
